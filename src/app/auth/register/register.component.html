@@ -1,0 +1,81 @@
+<div class="container mt-5 rounded-5 ">
+    <div class="row align-item-strech">
+        <div class="col  d-none d-lg-block col-md-5 col-lg-5 col-xlg-6 rounded my-5 ">
+            <img src="https://images.unsplash.com/photo-1502675135487-e971002a6adb?q=80&w=1376&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="login-image" class="img-fluid rounded-5 my-5">
+        </div>
+        <div class="col p-5 rounded-end">
+            <div class="p-3">
+                <div class="d-flex justify-content-center">
+                    <img
+                    src="/assets/img/avatar.png"
+                    alt="login-icon"
+                    style="height: 7rem;"> 
+                </div>
+                <h2 class="text-center fs-1 fw-bold ">Registro</h2>
+                <form [formGroup]="formRegister" (ngSubmit)="onSubmit()">
+                    <div class="mb-4 input-group">
+                        <div class="input-group-text">
+                            <i class="bi bi-person-circle"></i>
+                        </div>
+                        <input type="text" class="form-control" name="nombre" placeholder="Nombre" formControlName="name">
+                    </div>
+                    <div class="mb-4 input-group">
+                        <div class="input-group-text">
+                            <i class="bi bi-person-vcard"></i>
+                        </div>
+                        <input type="text" class="form-control" name="apellido" placeholder="Apellido" formControlName="lastName">
+                    </div>
+                    <div class="mb-4 input-group">
+                        <div class="input-group-text">
+                            <i class="bi bi-person-vcard"></i>
+                        </div>
+                        <input type="text" class="form-control" name="DNI" placeholder="DNI" formControlName="dni">
+                    </div>
+                    <div class="mb-4">
+                        <input type="date" class="form-control me-2" formControlName="date">
+                    </div>
+                    <div class="mb-4">
+                        <div class="mb-4 input-group">
+                            <div class="input-group-text">
+                                <i class="bi bi-suit-heart-fill"></i>
+                            </div>
+                            <select class="form-select" id="genero" name="genero" formControlName="gender">
+                                <option value="" disabled selected>Selecciona tu género</option>
+                                <option value="masculino">Masculino</option>
+                                <option value="femenino">Femenino</option>
+                            </select>
+                        </div>
+                    </div>
+                        <span class="text-danger fw-bold" [hidden]="formRegister.get('email')?.valid || formRegister.get('email')?.untouched">* Debes colocar un email válido.</span>
+                    <div class="mb-4 input-group">
+                        <div class="input-group-text">
+                            <i class="bi bi-envelope-at"></i>
+                        </div>
+                        <input type="email" class="form-control" name="email" placeholder="Correo electrónico" formControlName="email">
+                    </div>
+                        <span class="text-danger fw-bold" [hidden]="formRegister.get('password')?.valid || formRegister.get('password')?.untouched">
+                            * Tu contraseña no tiene los carácteres mínimos ( {{ formRegister.get('password')?.value?.length }} /8 )
+                        </span>
+                    <div class="mb-4 input-group">
+                        <div  class="input-group-text">
+                            <i class="bi bi-incognito"></i>
+                        </div>
+                        <input type="password" class="form-control" name="password" placeholder="Contraseña" formControlName="password">
+                    </div>
+                        <span class="text-danger fw-bold" [hidden]=" formRegister.get('confirm_password')?.value === formRegister.get('password')?.value ">
+                            * Las contraseñas no coinciden.
+                        </span>
+                    <div class="mb-4 input-group">
+                        <div  class="input-group-text">
+                            <i class="bi bi-incognito"></i>
+                        </div>
+                        <input type="password" class="form-control" name="confirmar_contraseña" placeholder="Confirmar Contraseña" formControlName="confirm_password">
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-dark fw-semibold shadow-sm" [disabled]="formRegister.invalid" >Registrarse</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

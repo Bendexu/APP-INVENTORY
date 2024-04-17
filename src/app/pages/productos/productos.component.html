@@ -1,0 +1,68 @@
+<div class="container bg-primary rounded-5">
+  <h1 class="d-flex justify-content-center">Registrar Productos</h1>
+  <div class="row">
+    <!-- Columna del formulario -->
+    <div class="col-lg-4 col-md-6">
+      <form [formGroup]="formProductos" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="codigo">Código:</label>
+          <input type="number" class="form-control" placeholder="Código" formControlName="codigo">
+        </div>
+        <div class="form-group ">
+          <label for="nombre">Nombre:</label>
+          <input type="text" class="form-control" placeholder="Nombre" formControlName="nombre">
+        </div>
+        <div class="form-group">
+          <label for="stock">Stock:</label>
+          <input type="number" class="form-control" placeholder="Stock" formControlName="stock">
+        </div>
+        <div class="form-group">
+          <label for="precio">Precio:</label>
+          <input type="number" class="form-control" placeholder="Precio" formControlName="precio">
+        </div>
+        <button type="button" class="btn btn-danger my-4" (click)="onSubmit()">Guardar</button>
+      </form>
+    </div>
+    
+    <!-- Columna de los productos guardados -->
+    <div class="col-lg-8 col-md-6">
+      <div class="mt-4">
+        <h2 class="text-center">Productos Guardados</h2>
+        <table class="table table-danger">
+          <thead>
+            <tr>
+              <th scope="col">Código</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Stock</th>
+              <th scope="col">Precio</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let product of savedProducts" class="table-info">
+              <th scope="row">{{ product.codigo }}</th>
+              <td>{{ product.nombre }}</td>
+              <td>{{ product.stock }}</td>
+              <td>{{ product.precio }}</td>
+              <td>
+                <button class="btn btn-outline-danger me-2" (click)="eliminarProducto(product.codigo)">Delete</button>
+                <button class="btn btn-outline-primary" (click)="onSubmitEditar()">Editar</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+
+   
+    
+
+
+    
+  
+ 

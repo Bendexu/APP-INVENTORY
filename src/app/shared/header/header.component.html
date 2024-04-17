@@ -1,0 +1,18 @@
+<nav class="navbar">
+    <div class="logo"><a href="">Almacen</a></div>
+    <ul class="links">
+        <li><a [routerLink]="['/pages/home']">Home</a></li>
+        <li><a [routerLink]="['/pages/about']">about</a></li>
+        <li><a [routerLink]="['/pages/productos']">Productos</a></li>
+    </ul>
+    <div class="current-date-time">
+        <div class="clock">
+          <div class="hour">{{ currentHour }}</div>
+          <div class="separator">:</div>
+          <div class="minute">{{ currentMinute }}</div>
+          <div class="separator">:</div>
+          <div class="second">{{ currentSecond }}</div>
+        </div>
+        <div class="date">{{ currentDate }}</div>
+      </div>
+</nav>

@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-4">
+      <div class="card mt-5">
+        <div class="card-header bg-muted text-dark text-center">
+          <img src="https://img.freepik.com/vector-premium/icono-usuario-simbolo-persona-humana-icono-perfil-social-signo-inicio-sesion-avatar-simbolo-usuario-web-boton-web-interfaz-usuario-blanco-neumorphic-ui-ux-neumorfismo-eps-vectoriales-10_399089-2757.jpg" alt="login_img">
+          <h4 class="mb-0">Login</h4>
+        </div>
+        <div class="card-body ">
+          <form [formGroup]="formIniciar" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <input type="text" class="form-control" id="email" placeholder="email" formControlName="email">
+            </div>
+            <div class="form-group my-3">
+              <input type="password" class="form-control" id="password" placeholder="Password" formControlName="password">
+            </div>
+            <div class="form-group mb-0 my-4 d-flex justify-content-center">
+              <button type="submit" class="btn btn-info btn-block">Iniciar sesión</button>
+            </div>
+          </form>
+        </div>
+        <div class="card-footer text-black text-center">
+        <a href="/auth/register">Regístrate aquí</a><br>
+        <a href="/auth/recover">Recuperar tu contraseña</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
