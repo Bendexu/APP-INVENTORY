@@ -1,52 +1,42 @@
 <div class="container bg-primary rounded-5">
   <h1 class="d-flex justify-content-center">Registrar Productos</h1>
   <div class="row">
-    <!-- Columna del formulario -->
-    <div class="col-lg-4 col-md-6">
-      <form [formGroup]="formProductos" (ngSubmit)="onSubmit()">
-        <div class="form-group">
-          <label for="codigo">Código:</label>
-          <input type="number" class="form-control" placeholder="Código" formControlName="codigo">
+    <div class="row my-4">
+      <div class="col-lg-8 col-md-6">
+        <button type="button" class="btn btn-success my-4" data-bs-toggle="modal" data-bs-target="#addProductModal">Agregar Producto</button>
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1">Buscar</span>
+          <input type="text" class="form-control" placeholder="Nombre o código" aria-label="Nombre o código" aria-describedby="basic-addon1" [(ngModel)]="filtro" (input)="filtrarProductos()">
         </div>
-        <div class="form-group ">
-          <label for="nombre">Nombre:</label>
-          <input type="text" class="form-control" placeholder="Nombre" formControlName="nombre">
-        </div>
-        <div class="form-group">
-          <label for="stock">Stock:</label>
-          <input type="number" class="form-control" placeholder="Stock" formControlName="stock">
-        </div>
-        <div class="form-group">
-          <label for="precio">Precio:</label>
-          <input type="number" class="form-control" placeholder="Precio" formControlName="precio">
-        </div>
-        <button type="button" class="btn btn-danger my-4" (click)="onSubmit()">Guardar</button>
-      </form>
+      </div>
     </div>
-    
     <!-- Columna de los productos guardados -->
-    <div class="col-lg-8 col-md-6">
+    <div class="col-lg-12 col-md-6">
       <div class="mt-4">
         <h2 class="text-center">Productos Guardados</h2>
         <table class="table table-danger">
           <thead>
             <tr>
               <th scope="col">Código</th>
+              <th scope="col">Imagen</th>
               <th scope="col">Nombre</th>
+              <th scope="col">Detalles</th>
               <th scope="col">Stock</th>
               <th scope="col">Precio</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let product of savedProducts" class="table-info">
+            <tr *ngFor="let product of filteredProducts" class="table-info">
               <th scope="row">{{ product.codigo }}</th>
+              <td><img [src]="imageUrl(product)" alt="Imagen del producto" width="100"></td>
               <td>{{ product.nombre }}</td>
+              <td>{{ product.detalles}}</td>
               <td>{{ product.stock }}</td>
               <td>{{ product.precio }}</td>
               <td>
                 <button class="btn btn-outline-danger me-2" (click)="eliminarProducto(product.codigo)">Delete</button>
-                <button class="btn btn-outline-primary" (click)="onSubmitEditar()">Editar</button>
+                <button class="btn btn-outline-primary" (click)="editarProducto(product.codigo,product)">Editar</button>
               </td>
             </tr>
           </tbody>
@@ -56,7 +46,50 @@
   </div>
 </div>
 
-  
+<!-- Modal para agregar productos -->
+<div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Agregar Producto</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body bg-info">
+        <div class="col-lg-12">
+          <form [formGroup]="formProductos" (ngSubmit)="onSubmit()" nctype="multipart/form-data">
+            <div class="form-group">
+              <label for="codigo">Código:</label>
+              <input type="number" class="form-control" placeholder="Código" formControlName="codigo">
+            </div>
+            <div class="form-group ">
+              <label for="nombre">Nombre:</label>
+              <input type="text" class="form-control" placeholder="Nombre" formControlName="nombre">
+            </div>
+            <div class="form-group">
+              <label for="nombre">Detalles:</label>
+              <input type="text" class="form-control" placeholder="Detalles" formControlName="detalles">
+            </div>
+            <div class="form-group">
+              <label for="stock">Stock:</label>
+              <input type="number" class="form-control" placeholder="Stock" formControlName="stock">
+            </div>
+            <div class="form-group">
+              <label for="precio">Precio:</label>
+              <input type="number" class="form-control" placeholder="Precio" formControlName="precio">
+            </div>
+            <div class="form-group">
+              <label for="imagen">Imagen:</label>
+              <input type="file" class="form-control"  formControlName="imagen" (change)="onFileChange($event)">
+            </div>
+            <button type="submit" class="btn btn-danger my-4">Guardar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 
    

@@ -1,21 +1,22 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable, inject } from "@angular/core";
 import { Observable } from "rxjs/internal/Observable";
 
 
-interface DataProductos{
+export interface DataProductos{
     codigo: number;
     nombre: string;
+    detalles:string;
     stock: number;
     precio: number;
+    imagen:string;
 }
-
 @Injectable({
     providedIn: 'root'
   })
   export class PagesService {
    
-    productoAndRedirectToabout(value: Partial<{ codigo: number | null; nombre: string | null; stock: number | null; precio: number}>) {
+    productoAndRedirectToabout(value: Partial<{ codigo: number | null; nombre: string | null ; detalles: string | null; stock: number | null; precio: number |  null; imagen: string}>) {
       throw new Error('Method not implemented.');
     }
     // 
@@ -25,8 +26,8 @@ interface DataProductos{
     constructor() { }
 
 
-    productos(data: DataProductos): Observable<any> {
-        return this.httpService.post(this.pages_end_point+'/registrar_producto', { ...data });
+    productos(DataProductos:FormData): Observable<any> {
+        return this.httpService.post(this.pages_end_point+'/registrar_producto', DataProductos);
       }
 
     obtenerProductos(): Observable<any[]> {
@@ -34,14 +35,27 @@ interface DataProductos{
     }
 
     eliminarProducto(codigo: number): Observable<any> {
-      return this.httpService.delete(`${this.pages_end_point}/eliminar_producto/:codigo${codigo}`);
+      return this.httpService.delete<any>(`${this.pages_end_point}/eliminar_producto/${codigo}`);
     }
-    
-    editarProducto(id: number, data: any): Observable<any> {
-      return this.httpService.put(`${this.pages_end_point}/editar/${id}`, data);
+
+    editarProducto(codigo: number, data: any): Observable<any> {
+    return this.httpService.put(`${this.pages_end_point}/editar/${codigo}`, data);
+  }
+  
+  filtrarProductos(codigo: number | null, nombre: string | null): Observable<any[]> {
+    let params = new HttpParams();
+    if (codigo !== null) {
+        params = params.append('codigo', codigo.toString());
     }
+    if (nombre !== null) {
+        params = params.append('nombre', nombre);
+    }
+    return this.httpService.get<any[]>(`${this.pages_end_point}/filtrarProducto`, { params: params });
+}
+
+  
+}
     
     
 
 
-}  
