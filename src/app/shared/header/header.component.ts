@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -8,7 +8,7 @@ import { RouterModule } from '@angular/router';
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit{
   currentHour: string = '';
   currentMinute: string = '';
   currentSecond: string = '';
@@ -17,7 +17,7 @@ export class HeaderComponent {
   constructor() { }
 
   ngOnInit(): void {
-    // Actualiza la hora cada segundo
+    // Actualiza la hora cada segundo 
     setInterval(() => {
       this.updateTime();
     }, 1000);

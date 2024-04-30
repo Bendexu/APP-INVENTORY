@@ -1,0 +1,115 @@
+<div class="container">
+  <div class="row">
+    <div class="col-6 mb-3">
+      <button type="button" class="btn btn-success my-4" data-bs-toggle="modal" data-bs-target="#modalAgregarStock">Agregar stock a producto</button>
+    </div>
+    <div class="col-6 mb-3">
+      <button type="button" class="btn btn-danger my-4" data-bs-toggle="modal" data-bs-target="#modalQuitarStock">Quitar stock de producto</button>
+    </div>
+  </div>
+  
+  <div class="row">
+      <div class="col-6 mb-3">
+          <input type="text" class="form-control" id="filtroLogs" placeholder="Tipo de Movimiento o yyyy-mm-dd" [(ngModel)]="filtro" (input)="filtrarLogs(filtro)">
+      </div>
+      <div class="col-6 mb-3">
+          <input type="date" class="form-control" id="filtroFecha" [(ngModel)]="filtro" (input)="filtrarLogs(filtro)">
+      </div>
+  </div>
+
+  <table class="table table-striped">
+      <thead>
+          <tr>
+              <th>ID</th>
+              <th>Código de Producto</th>
+              <th>Nombre del Producto</th>
+              <th>Tipo de Movimiento</th>
+              <th>Cantidad</th>
+              <th>Detalles</th>
+              <th>Fecha de Movimiento</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let log of logs">
+              <td>{{ log.id }}</td>
+              <td>{{ log.codigo_producto }}</td>
+              <td>{{ log.nombre}}</td> 
+              <td>{{ log.tipo_movimiento }}</td>
+              <td>{{ log.cantidad }}</td>
+              <td>{{ log.detalles }}</td>
+              <td>{{ log.fecha_movimiento }}</td>
+          </tr>
+      </tbody>
+  </table>
+
+  <!-- Modal para agregar stock -->
+  <div class="modal fade" id="modalAgregarStock" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Agregar stock a producto</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body bg-info">
+                  <!-- Formulario para buscar producto -->
+                  <form [formGroup]="fromproducto" (ngSubmit)="buscarProducto()">
+                      <div class="form-group">
+                          <label for="codigoONombre">Código o nombre del producto:</label>
+                          <input type="text" class="form-control" id="codigoONombre" formControlName="codigoONombre">
+                      </div>
+                      <button type="submit" class="btn btn-primary">Buscar producto</button>
+                  </form>
+                  <!-- Formulario para agregar stock (se mostrará solo si se encuentra el producto) -->
+                  <div *ngIf="productoEncontrado">
+                      <form [formGroup]="formAgregarStock" (ngSubmit)="agregarStock()">
+                          <div class="form-group">
+                              <label for="cantidad">Cantidad de stock a agregar:</label>
+                              <input type="number" class="form-control" id="cantidad" formControlName="cantidad">
+                          </div>
+                          <div class="form-group">
+                              <label for="detalles">Detalles de ingreso de producto a stock:</label>
+                              <textarea class="form-control" id="detalles" formControlName="detalles"></textarea>
+                          </div>
+                          <button type="submit" class="btn btn-primary">Agregar stock</button>
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- Modal para quitar stock -->
+  <div class="modal fade" id="modalQuitarStock" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Quitar stock de producto</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body bg-info">
+                  <form [formGroup]="fromproducto" (ngSubmit)="buscarProducto()">
+                      <div class="form-group">
+                          <label for="codigoONombre">Código o nombre del producto:</label>
+                          <input type="text" class="form-control" id="codigoONombre" formControlName="codigoONombre">
+                      </div>
+                      <button type="submit" class="btn btn-primary">Buscar producto</button>
+                  </form>
+                  <!-- Formulario para quitar stock (se mostrará solo si se encuentra el producto) -->
+                  <div *ngIf="productoEncontrado">
+                      <form [formGroup]="formQuitarStock" (ngSubmit)="quitarStock()">
+                          <div class="form-group">
+                              <label for="cantidad">Cantidad de stock a quitar:</label>
+                              <input type="number" class="form-control" id="cantidad" formControlName="cantidad">
+                          </div>
+                          <div class="form-group">
+                              <label for="detalles">Detalles de salida de producto a stock:</label>
+                              <textarea class="form-control" id="detalles" formControlName="detalles"></textarea>
+                          </div>
+                          <button type="submit" class="btn btn-primary">Quitar stock</button>
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators, FormsModule } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators, FormsModule} from '@angular/forms';
 import { PagesService, DataProductos } from '../../services/pages.service';
 import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
@@ -25,13 +25,15 @@ export class ProductosComponent implements OnInit {
     'precio': ['', [Validators.required, Validators.min(0)]],
     'imagen': ['']
   });
-
+  
+ 
   savedProducts: any[] = [];
   editarForm: any;
   productos: any[] = [];
   filteredProducts: any[] = [];
   filtro: string = '';
   selectedFile: File | undefined;
+
 
   ngOnInit() {
     this.getSavedProducts(); // Obtener productos al inicializar el componente

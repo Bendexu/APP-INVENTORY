@@ -3,6 +3,7 @@ import { PagesComponent } from "./pages.component";
 import { HomeComponent } from "./home/home.component";
 import { AboutComponent } from "./about/about.component";
 import { ProductosComponent } from "./productos/productos.component";
+import { LogsComponent } from "./logs/logs.component";
 
 
 
@@ -23,6 +24,10 @@ export const pagesRoutes:Routes = [
             {
                 path:'productos',
                 component:ProductosComponent
+            },
+            {
+                path:'logs',
+                component:LogsComponent
             },
             
 
