@@ -14,9 +14,13 @@ export class HeaderComponent implements OnInit{
   currentSecond: string = '';
   currentDate: string = '';
 
+  private interval_id? : number;
+
   constructor() { }
 
   ngOnInit(): void {
+    if (typeof window !== 'undefined') {
+      this.interval_id = window.setInterval(() => {
     // Actualiza la hora cada segundo 
     setInterval(() => {
       this.updateTime();
@@ -29,7 +33,10 @@ export class HeaderComponent implements OnInit{
     // Llama a updateTime() para inicializar la hora
     this.updateTime();
     this.updateDate();
+  }, 1000);
   }
+}
+  
 
   private updateTime(): void {
     const now = new Date();

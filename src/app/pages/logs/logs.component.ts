@@ -125,6 +125,7 @@ export class LogsComponent implements OnInit {
     this.pagesService.agregarStock(this.producto.codigo, cantidad, detalles).subscribe({
       next: (response) => {
         this.notifycation.success(response.message, 'Éxito');
+        this.productoEncontrado = false;
         this.formAgregarStock.reset();
         this.fromproducto.reset();
         this.obtenerLogs();
@@ -152,6 +153,7 @@ export class LogsComponent implements OnInit {
     this.pagesService.quitarStock(this.producto.codigo,cantidad, detalles).subscribe({
       next: (response) => {
         this.notifycation.success(response.message, 'Éxito');
+        this.productoEncontrado = false;
         this.formQuitarStock.reset();
         this.fromproducto.reset();
         this.obtenerLogs();
